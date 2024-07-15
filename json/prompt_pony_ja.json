@@ -1,4 +1,33 @@
 {
+  "Pony": {
+    "High Quality": {
+      "score_9": { "Desc": "score_9", "url": "score_9.webp" },
+      "score_8": { "Desc": "score_8", "url": "score_8.webp" },
+      "score_7": { "Desc": "score_7", "url": "score_7.webp" },
+      "score_6": { "Desc": "score_6", "url": "score_6.webp" },
+      "score_5": { "Desc": "score_5", "url": "score_5.webp" },
+      "score_4": { "Desc": "score_4", "url": "score_4.webp" }
+    },
+    "Up High Quality": {
+      "score_9_up": { "Desc": "score_9_up", "url": "score_9_up.webp" },
+      "score_8_up": { "Desc": "score_8_up", "url": "score_8_up.webp" },
+      "score_7_up": { "Desc": "score_7_up", "url": "score_7_up.webp" },
+      "score_6_up": { "Desc": "score_6_up", "url": "score_6_up.webp" },
+      "score_5_up": { "Desc": "score_5_up", "url": "score_5_up.webp" },
+      "score_4_up": { "Desc": "score_4_up", "url": "score_4_up.webp" }
+    },
+    "Source": {
+      "source_pony": { "Desc": "ウマの女の子（本当の馬に近い形状）", "url": "source_pony.webp" },
+      "source_furry": { "Desc": "ケモノ系のの女の子", "url": "source_furry.webp" },
+      "source_anime": { "Desc": "日本アニメ風", "url": "source_anime.webp" },
+      "source_cartoon": { "Desc": "カートゥーン", "url": "source_cartoon.webp" }
+    },
+    "Safe": {
+      "rating_safe": { "Desc": "安全なコンテンツ", "url": "rating_safe.webp" },
+      "rating_questionable": { "Desc": "ちょっと怪しいコンテンツ", "url": "rating_questionable.webp" },
+      "rating_explicit": { "Desc": "露骨なコンテンツ", "url": "rating_explicit.webp" }
+    }
+  },
   "High Quality Prompt": {
     "Resolution": {
       "4k": { "Desc": "4K", "url": "4k.webp" },
