@@ -235,29 +235,6 @@
 
   <script>
     let data = {
-      "High Quality Prompt": {
-        "Resolution": {
-          "4k": { "Desc": "4K解像度", "url": "img/4k.webp" },
-          "8k": { "Desc": "8K解像度", "url": "img/8k.webp" },
-          "ultra highres": { "Desc": "超高解像度", "url": "img/ultra-highres.webp" }
-        },
-        "Visual": {
-          "beautiful": { "Desc": "美しい", "url": "img/beautiful.webp" },
-          "exquisite": { "Desc": "この上なく素晴らしい", "url": "exquisite.jpg" },
-          "masterpiece": { "Desc": "傑作", "url": "masterpiece.jpg" }
-        },
-        "Quality": {
-          "best quality": { "Desc": "最高品質", "url": "best-quality.jpg" },
-          "ultra quality": { "Desc": "超高品質", "url": "ultra-quality.jpg" }
-        },
-        "Detail": {
-          "detailed": { "Desc": "詳細", "url": "detailed.jpg" },
-          "extremely detailed": { "Desc": "非常に詳細", "url": "extremely-detailed.jpg" },
-          "finely detailed": { "Desc": "細かく", "url": "finely-detailed.jpg" },
-          "insanely detailed": { "Desc": "めちゃくちゃ詳しい", "url": "insanely-detailed.jpg" },
-          "ultra detailed": { "Desc": "超精細", "url": "ultra-detailed.jpg" }
-        }
-      }
     };
 
     let currentPath = [];
@@ -349,8 +326,8 @@ function initializeUI() {
         img.onerror = reject;
         img.src = url;
         img.alt = "";
-        img.style.maxWidth = '160px';
-        img.style.maxHeight = '160px';
+        img.style.maxWidth = '180px';
+        img.style.maxHeight = '180px';
         img.style.display = 'block';
         img.style.margin = '0 auto 5px';
       });
