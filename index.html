@@ -265,15 +265,19 @@
     let selectedImages = [];
     let imageCache = new Map();
 
-    document.addEventListener('DOMContentLoaded', initializeUI);
+document.addEventListener('DOMContentLoaded', initializeUI);
 
-    function initializeUI() {
-      const languageDropdown = document.getElementById('languageDropdown');
-      const modelDropdown = document.getElementById('modelDropdown');
-      languageDropdown.addEventListener('change', () => loadJson());
-      modelDropdown.addEventListener('change', () => loadJson());
-      showTag1();
-    }
+function initializeUI() {
+  const languageDropdown = document.getElementById('languageDropdown');
+  const modelDropdown = document.getElementById('modelDropdown');
+  languageDropdown.addEventListener('change', () => loadJson());
+  modelDropdown.addEventListener('change', () => loadJson());
+
+  // 初期設定のJSONを取得
+  loadJson();
+
+  showTag1();
+}
 
     function loadJson() {
       const language = document.getElementById('languageDropdown').value;
