@@ -79,10 +79,11 @@ h3 {
 }
 
 .tag-button img {
-  max-width: 100px;
-  max-height: 100px;
+  max-width: 180px;
+  max-height: 180px;
   display: block;
-  margin: 0 auto 5px;
+  padding: 0px;
+  margin: 0 auto 0px;
 }
 
 .tag1-button {
@@ -111,7 +112,7 @@ h3 {
 }
 
 #imageContainer {
-  height: 200px;
+  height: 140px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -123,8 +124,8 @@ h3 {
 }
 
 #imageContainer img {
-  width: 180px;
-  height: 180px;
+  width: 140px;
+  height: 140px;
   object-fit: contain;
   margin: 2px;
   border: 1px solid #444;
@@ -132,12 +133,12 @@ h3 {
 }
 
 .image-placeholder {
-  width: 100px;
-  height: 100px;
-  max-width: 100px;
-  max-height: 100px;
-  min-width: 100px;
-  min-height: 100px;
+  width: 180px;
+  height: 180px;
+  max-width: 180px;
+  max-height: 180px;
+  min-width: 180px;
+  min-height: 180px;
   background-color: #444;
   display: flex;
   justify-content: center;
@@ -148,8 +149,8 @@ h3 {
   border-radius: 5px;
 }
 .image-placeholder, .tag-button img {
-  width: 165px;
-  height: 165px;
+  width: 180px;
+  height: 180px;
   object-fit: contain;
   display: block;
   margin: 0 auto 5px;
