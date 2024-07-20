@@ -5,203 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>階層的タグ選択UI（画像キャッシュ機能付き）</title>
-  <style>
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #1a1a1a;
-      color: #ffffff;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .upper-section {
-      display: flex;
-      flex: 1;
-      border-bottom: 1px solid #333;
-    }
-
-    .column {
-      display: flex;
-      flex-direction: column;
-      border-right: 1px solid #333;
-      padding: 10px;
-    }
-
-    .column:last-child {
-      border-right: none;
-    }
-
-    .column-2 {
-      flex: 2;
-    }
-
-    .column-6 {
-      flex: 6;
-    }
-
-    .column-3 {
-      flex: 3;
-    }
-
-    h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      color: #ddd;
-    }
-
-    .scroll-area {
-      flex-grow: 1;
-      overflow-y: auto;
-    }
-
-    .tag-button {
-      display: inline-block;
-      padding: 8px 15px;
-      margin: 0 5px 5px 0;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.3);
-      border: 2px solid;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .tag-button:hover {
-      box-shadow: 0 0 15px currentColor;
-    }
-
-    .tag-button img {
-      max-width: 100px;
-      max-height: 100px;
-      display: block;
-      margin: 0 auto 5px;
-    }
-
-    .tag1-button {
-      border-color: #ff6b6b;
-      color: #ff6b6b;
-    }
-
-    .tag2-button {
-      border-color: #4ecdc4;
-      color: #4ecdc4;
-    }
-
-    .tag3-button {
-      border-color: #45b7d1;
-      color: #45b7d1;
-    }
-
-    .tag4-button {
-      border-color: #f7b731;
-      color: #f7b731;
-    }
-
-    .tag5-button {
-      border-color: #a55eea;
-      color: #a55eea;
-    }
-
-    #imageContainer {
-      height: 200px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 2px;
-      overflow-y: auto;
-      background-color: #2a2a2a;
-    }
-
-    #imageContainer img {
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-      margin: 2px;
-      border: 1px solid #444;
-      border-radius: 5px;
-    }
-
-    .image-placeholder {
-      width: 180px;
-      height: 180px;
-      background-color: #444;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #888;
-      font-size: 14px;
-      margin: 2px;
-      border-radius: 5px;
-    }
-
-    .selected-tag-group {
-      display: inline-block;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
-      padding: 5px;
-      margin: 0 5px 5px 0;
-    }
-
-    .remove-tag {
-      cursor: pointer;
-      color: #ff6b6b;
-      margin-left: 5px;
-    }
-
-    hr {
-      border: none;
-      height: 1px;
-      background-color: #333;
-      margin: 10px 0;
-    }
-
-    .dropdown-container {
-      display: flex;
-      justify-content: flex-end;
-      padding: 10px;
-      border-bottom: 1px solid #333;
-    }
-
-    .dropdown {
-      background-color: #333;
-      color: #fff;
-      border: 1px solid #555;
-      border-radius: 5px;
-      padding: 5px;
-      margin: 0 5px;
-    }
-
-    /* Scrollbar styles */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #2a2a2a;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #888;
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
-  </style>
+  <link rel="stylesheet" href="css/main.css?v=1.0">
   <script src="https://unpkg.com/i18next@21.9.1/dist/umd/i18next.min.js"></script>
   <script src="https://unpkg.com/i18next-http-backend@1.4.3/i18nextHttpBackend.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <style>
+  </style>
 </head>
 
 <body>
@@ -222,11 +31,19 @@
         <div id="tag1Container" class="scroll-area"></div>
       </div>
       <div class="column column-6">
-        <h3>中項目以降</h3>
+        <h3>中項目</h3>
         <div id="tagLevels" class="scroll-area"></div>
       </div>
       <div class="column column-2">
-        <h3>選択されたプロンプト</h3>
+        <h3>
+          選択済み
+          <button id="downloadButton" class="icon-button" disabled title="ダウンロード">
+            <i class="fas fa-download"></i>
+          </button>
+          <button id="copyButton" class="icon-button" disabled title="コピー">
+            <i class="fas fa-copy"></i>
+          </button>
+        </h3>
         <div id="selectedTags" class="scroll-area"></div>
       </div>
     </div>
@@ -234,27 +51,45 @@
   </div>
 
   <script>
-    let data = {
-    };
-
+    let data = {};
     let currentPath = [];
     let selectedTagGroups = [];
     let selectedImages = [];
     let imageCache = new Map();
+    let imageWrappers = [];
 
-document.addEventListener('DOMContentLoaded', initializeUI);
+    document.addEventListener('DOMContentLoaded', initializeUI);
 
-function initializeUI() {
-  const languageDropdown = document.getElementById('languageDropdown');
-  const modelDropdown = document.getElementById('modelDropdown');
-  languageDropdown.addEventListener('change', () => loadJson());
-  modelDropdown.addEventListener('change', () => loadJson());
+    function initializeUI() {
+      const languageDropdown = document.getElementById('languageDropdown');
+      const modelDropdown = document.getElementById('modelDropdown');
+      languageDropdown.addEventListener('change', () => loadJson());
+      modelDropdown.addEventListener('change', () => loadJson());
 
-  // 初期設定のJSONを取得
-  loadJson();
+      loadJson();
+      showTag1();
 
-  showTag1();
-}
+      document.getElementById('downloadButton').addEventListener('click', () => {
+        if (selectedTagGroups.length > 0) {
+          const content = selectedTagGroups.join(',');
+          const blob = new Blob([content], { type: 'text/plain' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'selected_tags.txt';
+          a.click();
+        }
+      });
+
+      document.getElementById('copyButton').addEventListener('click', () => {
+        if (selectedTagGroups.length > 0) {
+          const content = selectedTagGroups.join(',');
+          navigator.clipboard.writeText(content).then(() => {
+          }).catch(err => {
+            console.error('クリップボードへのコピーに失敗しました:', err);
+          });
+        }
+      });
+    }
 
     function loadJson() {
       const language = document.getElementById('languageDropdown').value;
@@ -277,7 +112,7 @@ function initializeUI() {
 
     function showTag1() {
       const tag1Container = document.getElementById('tag1Container');
-      tag1Container.innerHTML = ''; // Clear existing buttons
+      tag1Container.innerHTML = '';
       Object.keys(data).forEach(tag => {
         if (tag === "hr") {
           const hr = document.createElement('hr');
@@ -296,7 +131,7 @@ function initializeUI() {
       if (url) {
         const placeholder = document.createElement('div');
         placeholder.classList.add('image-placeholder');
-        placeholder.textContent = '読み込み中...';
+        placeholder.textContent = '読み込み中';
         button.appendChild(placeholder);
 
         loadImage(url).then(img => {
@@ -326,35 +161,35 @@ function initializeUI() {
         img.onerror = reject;
         img.src = url;
         img.alt = "";
-        img.style.maxWidth = '180px';
-        img.style.maxHeight = '180px';
-        img.style.display = 'block';
-        img.style.margin = '0 auto 5px';
       });
     }
 
     function showTags(currentData, level) {
       const tagLevels = document.getElementById('tagLevels');
 
-      // Clear all levels from the current one
       while (tagLevels.children.length > level) {
         tagLevels.removeChild(tagLevels.lastChild);
       }
 
       const levelContainer = document.createElement('div');
 
-      Object.keys(currentData).forEach(tag => {
+      const buttons = Object.keys(currentData).map(tag => {
         const url = currentData[tag].url || (typeof currentData[tag] === 'object' && currentData[tag].hasOwnProperty('url') ? currentData[tag].url : null);
         const button = createButton(tag, level + 1, url);
         button.addEventListener('click', () => selectTag(tag, level, currentData[tag]));
-        levelContainer.appendChild(button);
+        return button;
       });
 
-      tagLevels.appendChild(levelContainer);
+      Promise.all(buttons.map(button => {
+        const img = button.querySelector('img');
+        return img ? loadImage(img.src) : Promise.resolve();
+      })).then(() => {
+        buttons.forEach(button => levelContainer.appendChild(button));
+        tagLevels.appendChild(levelContainer);
+      });
     }
 
     function selectTag(tag, level, data) {
-      // Clear existing tags from the selected level
       const tagLevels = document.getElementById('tagLevels');
       while (tagLevels.children.length > level) {
         tagLevels.removeChild(tagLevels.lastChild);
@@ -383,49 +218,95 @@ function initializeUI() {
 
     function updateSelectedTagsDisplay() {
       const selectedTagsElement = document.getElementById('selectedTags');
-      selectedTagsElement.innerHTML = ''; // Clear existing tags
+      selectedTagsElement.innerHTML = '';
       selectedTagGroups.forEach((tag, index) => {
         const groupElement = document.createElement('span');
         groupElement.classList.add('selected-tag-group');
         groupElement.textContent = tag;
+        groupElement.addEventListener('click', () => removeTagGroup(index));
         const removeButton = document.createElement('span');
         removeButton.classList.add('remove-tag');
-        removeButton.textContent = '×';
-        removeButton.addEventListener('click', () => removeTagGroup(index));
+        removeButton.innerHTML = '<i class="fas fa-times"></i>';
+        removeButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          removeTagGroup(index);
+        });
         groupElement.appendChild(removeButton);
         selectedTagsElement.appendChild(groupElement);
       });
+
+      const downloadButton = document.getElementById('downloadButton');
+      const copyButton = document.getElementById('copyButton');
+      const hasSelectedTags = selectedTagGroups.length > 0;
+      downloadButton.disabled = !hasSelectedTags;
+      copyButton.disabled = !hasSelectedTags;
     }
 
     function removeTagGroup(index) {
       selectedTagGroups.splice(index, 1);
       selectedImages.splice(index, 1);
+      const imageWrapper = imageWrappers[index];
+      if (imageWrapper) {
+        imageWrapper.remove();
+        imageWrappers.splice(index, 1);
+        updateImageIndices();
+      }
       updateSelectedTagsDisplay();
-      updateImageDisplay();
+    }
+
+    function updateImageIndices() {
+      imageWrappers.forEach((wrapper, index) => {
+        const removeButton = wrapper.querySelector('.remove-tag');
+        removeButton.onclick = (e) => {
+          e.stopPropagation();
+          removeTagGroup(index);
+        };
+        wrapper.querySelector('img').onclick = () => removeTagGroup(index);
+      });
     }
 
     function addImage(url) {
-      selectedImages.push(url);
-      updateImageDisplay();
+      if (url) {
+        selectedImages.push(url);
+        const imageContainer = document.getElementById('imageContainer');
+        const index = selectedImages.length - 1;
+
+        loadImage(url).then(img => {
+          const wrapper = createImageWrapper(url, index);
+          imageContainer.appendChild(wrapper);
+          imageWrappers.push(wrapper);
+          updateImageIndices();
+        });
+      }
+    }
+
+    function createImageWrapper(url, index) {
+      const imageWrapper = document.createElement('div');
+      imageWrapper.classList.add('image-container');
+
+      const imgElement = document.createElement('img');
+      imgElement.src = url;
+
+      const removeButton = document.createElement('span');
+      removeButton.classList.add('remove-tag');
+      removeButton.innerHTML = '<i class="fas fa-times"></i>';
+
+      imageWrapper.appendChild(imgElement);
+      imageWrapper.appendChild(removeButton);
+      return imageWrapper;
     }
 
     function updateImageDisplay() {
       const imageContainer = document.getElementById('imageContainer');
-      imageContainer.innerHTML = ''; // Clear existing images
-      selectedImages.forEach(url => {
-        if (url) {
-          loadImage(url).then(img => {
-            img.style.width = '180px';
-            img.style.height = '180px';
-            img.style.objectFit = 'contain';
-            img.style.margin = '2px';
-            img.style.border = '1px solid #444';
-            img.style.borderRadius = '5px';
-            imageContainer.appendChild(img);
-          }).catch(() => {
-            console.error('Failed to load image:', url);
-          });
-        }
+      imageContainer.innerHTML = '';
+      imageWrappers = [];
+
+      selectedImages.forEach((url, index) => {
+        loadImage(url).then(img => {
+          const wrapper = createImageWrapper(url, index);
+          imageContainer.appendChild(wrapper);
+          imageWrappers.push(wrapper);
+        });
       });
     }
   </script>

@@ -1,0 +1,266 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.upper-section {
+  display: flex;
+  flex: 1;
+  border-bottom: 1px solid #333;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #333;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.column:last-child {
+  border-right: none;
+}
+
+.column-2 {
+  flex: 2;
+}
+
+.column-6 {
+  flex: 6;
+}
+
+.column-3 {
+  flex: 3;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #ddd;
+}
+
+.scroll-area {
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.tag-button {
+  display: inline-block;
+  padding: 8px 15px;
+  margin: 0 5px 5px 0;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tag-button:hover {
+  box-shadow: 0 0 15px currentColor;
+}
+
+.tag-button img {
+  max-width: 100px;
+  max-height: 100px;
+  display: block;
+  margin: 0 auto 5px;
+}
+
+.tag1-button {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.tag2-button {
+  border-color: #4ecdc4;
+  color: #4ecdc4;
+}
+
+.tag3-button {
+  border-color: #45b7d1;
+  color: #45b7d1;
+}
+
+.tag4-button {
+  border-color: #f7b731;
+  color: #f7b731;
+}
+
+.tag5-button {
+  border-color: #a55eea;
+  color: #a55eea;
+}
+
+#imageContainer {
+  height: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 2px;
+  overflow-y: auto;
+  background-color: #2a2a2a;
+  flex-shrink: 0;
+}
+
+#imageContainer img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  margin: 2px;
+  border: 1px solid #444;
+  border-radius: 5px;
+}
+
+.image-placeholder {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  min-width: 100px;
+  min-height: 100px;
+  background-color: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+  font-size: 14px;
+  margin: 2px;
+  border-radius: 5px;
+}
+.image-placeholder, .tag-button img {
+  width: 165px;
+  height: 165px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 5px;
+}
+
+.selected-tag-group {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 5px 5px 0;
+  position: relative;
+}
+
+.selected-tag-group .remove-tag {
+  position: relative;
+  top: auto;
+  right: auto;
+  background-color: transparent;
+  border-radius: 0;
+  padding: 0;
+  margin-left: 5px;
+  cursor: pointer;
+  color: #ff6b6b;
+}
+
+.remove-tag {
+  cursor: pointer;
+  color: #ff6b6b;
+  margin-left: 5px;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #333;
+  margin: 10px 0;
+}
+
+.dropdown-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+
+.dropdown {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 5px;
+}
+.icon-button:hover {
+  color: #ddd;
+}
+.icon-button:disabled {
+  color: #555;
+  cursor: not-allowed;
+}
+.image-container {
+  position: relative;
+  display: inline-block;
+  margin: 2px;
+}
+
+.image-container img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border: 1px solid #444;
+  border-radius: 5px;
+}
+
+.remove-tag {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+}
+
