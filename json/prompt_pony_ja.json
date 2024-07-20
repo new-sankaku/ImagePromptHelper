@@ -245,25 +245,29 @@
   },
   "Gaze Direction": {
     "Gaze": {
-      "Looking at Viewer": { "Desc": "カメラ目線", "url": "img/looking-at-viewer.webp" },
-      "Staring Intently": { "Desc": "じっと見つめる", "url": "img/staring-intently.webp" },
-      "Looking Side Glance": { "Desc": "横を見る", "url": "img/looking-side-glance.webp" },
-      "Looking Over Shoulder": { "Desc": "肩越しに見る", "url": "img/looking-over-shoulder.webp" },
-      "Looking Back": { "Desc": "振り返る", "url": "img/looking-back.webp" },
-      "Gazing into the Distance": { "Desc": "遠くを見つめる", "url": "img/gazing-into-the-distance.webp" },
-      "Gazing Skyward": { "Desc": "空を見る", "url": "img/gazing-skyward.webp" },
-      "Eyes Closed": { "Desc": "目閉じ", "url": "img/eyes-closed.webp" },
-      "Gazing at Something Off-Frame": { "Desc": "フレーム外を見る", "url": "img/gazing-at-something-off-frame.webp" },
-      "Glancing Elsewhere": { "Desc": "他をちらっと見る", "url": "img/glancing-elsewhere.webp" },
-      "Turning Head Away": { "Desc": "頭をそらす", "url": "img/turning-head-away.webp" },
-      "Gazing Upward": { "Desc": "上を見つめる", "url": "img/gazing-upward.webp" },
-      "Looking Up": { "Desc": "上を見る", "url": "img/looking-up.webp" }
+      "Looking at Viewer": { "Desc": "カメラ目線", "url": "img/from/looking-at-viewer.webp" },
+      "Staring Intently": { "Desc": "じっと見つめる", "url": "img/from/staring-intently.webp" },
+      "Looking Side Glance": { "Desc": "横を見る", "url": "img/from/looking-side-glance.webp" },
+      "Looking Over Shoulder": { "Desc": "肩越しに見る", "url": "img/from/looking-over-shoulder.webp" },
+      "Looking Back": { "Desc": "振り返る", "url": "img/from/looking-back.webp" },
+      "Gazing into the Distance": { "Desc": "遠くを見つめる", "url": "img/from/gazing-into-the-distance.webp" },
+      "Gazing Skyward": { "Desc": "空を見る", "url": "img/from/gazing-skyward.webp" },
+      "Eyes Closed": { "Desc": "目閉じ", "url": "img/from/eyes-closed.webp" },
+      "Gazing at Something Off-Frame": { "Desc": "フレーム外を見る", "url": "img/from/gazing-at-something-off-frame.webp" },
+      "Glancing Elsewhere": { "Desc": "他をちらっと見る", "url": "img/from/glancing-elsewhere.webp" },
+      "Turning Head Away": { "Desc": "頭をそらす", "url": "img/from/turning-head-away.webp" },
+      "Gazing Upward": { "Desc": "上を見つめる", "url": "img/from/gazing-upward.webp" },
+      "Looking Up": { "Desc": "上を見る", "url": "img/from/looking-up.webp" }
     }
   },
   "Camera Angle": {
     "Camera Angle": {
-      "shoot from above": { "Desc": "上から撮影", "url": "img/shoot-from-above.webp" },
-      "shoot from below": { "Desc": "下から撮影", "url": "img/shoot-from-below.webp" }
+      "from front": { "Desc": "正面",  "url": "img/from/from-front.webp" },
+      "from above": { "Desc": "上から",  "url": "img/from/from-above.webp" },
+      "from below": { "Desc": "下から",  "url": "img/from/from-below.webp" },
+      "from side":  { "Desc": "横から",   "url": "img/from/from-side.webp" },
+      "from behind":{ "Desc": "後ろから", "url": "img/from/from-behind.webp" },
+      "from below": { "Desc": "下から",  "url": "img/from/from-below.webp" }
     }
   },
   "Hair": {
