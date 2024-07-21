@@ -160,7 +160,7 @@
       });
     }
 
-    function createButton(text, level, url) {
+    function createButton(text, level, url, alias) {
       const button = document.createElement('button');
       button.classList.add('tag-button', `tag${level}-button`);
       if (url) {
@@ -178,7 +178,12 @@
         });
       }
       const span = document.createElement('span');
-      span.textContent = text;
+      console.log("alias", alias);
+      if( alias ){
+        span.textContent = alias;
+      }else{
+        span.textContent = text;
+      }
       button.appendChild(span);
       return button;
     }
@@ -211,7 +216,8 @@
 
       const buttons = Object.keys(currentData).map(tag => {
         const url = currentData[tag].url || (typeof currentData[tag] === 'object' && currentData[tag].hasOwnProperty('url') ? currentData[tag].url : null);
-        const button = createButton(tag, level + 1, url);
+        const alias = currentData[tag].alias || (typeof currentData[tag] === 'object' && currentData[tag].hasOwnProperty('alias') ? currentData[tag].alias : null);
+        const button = createButton(tag, level + 1, url, alias);
         button.addEventListener('click', () => selectTag(tag, level, currentData[tag]));
         return button;
       });

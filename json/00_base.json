@@ -766,5 +766,13 @@
 			"comic style": 		{"url": "img/comic-style.webp" },
 			"realistic": 		{"url": "img/realistic.webp" }
 		}
+	},
+	"horizontalLine@113":{},
+	"Set Style": {
+		"Style": {
+			"manga, manga tone, cartoon tone, monochrome, comic, (rough, sketch:0.2),  lineart, line, (simple background:1.1), (white background:1.1), ": 
+			{"url": "img/vector-art.webp",
+			 "alias": "commic" }
+		}
 	}
 }
