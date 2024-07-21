@@ -63,11 +63,10 @@
     function initializeUI() {
       const languageDropdown = document.getElementById('languageDropdown');
       const modelDropdown = document.getElementById('modelDropdown');
-      languageDropdown.addEventListener('change', () => loadJson());
-      modelDropdown.addEventListener('change', () => loadJson());
+      languageDropdown.addEventListener('change', loadJsonAndRefresh);
+      modelDropdown.addEventListener('change', loadJsonAndRefresh);
 
-      loadJson();
-      showTag1();
+      loadJsonAndRefresh();
 
       document.getElementById('downloadButton').addEventListener('click', () => {
         if (selectedTagGroups.length > 0) {
@@ -91,32 +90,68 @@
       });
     }
 
+    function loadJsonAndRefresh() {
+      loadJson().then(() => {
+        refreshUI();
+      });
+    }
+
+    function refreshUI() {
+      currentPath = [];
+      selectedTagGroups = [];
+      selectedImages = [];
+      showTag1();
+      updateSelectedTagsDisplay();
+      updateImageDisplay();
+    }
+
     function loadJson() {
       const language = document.getElementById('languageDropdown').value;
-      const model = document.getElementById('modelDropdown').value;
-      const filename = `json/prompt_${model.toLowerCase()}_${language}.json`;
+      const model = document.getElementById('modelDropdown').value.toLowerCase();
 
-      fetch(filename)
-        .then(response => response.json())
-        .then(jsonData => {
-          data = jsonData;
-          currentPath = [];
-          selectedTagGroups = [];
-          selectedImages = [];
-          showTag1();
-          updateSelectedTagsDisplay();
-          updateImageDisplay();
-        })
-        .catch(error => console.error('Error loading JSON:', error));
+      return Promise.all([
+        fetch(`json/00_base.json`).then(response => response.json()),
+        fetch(`json/00_prompt_${model}_base.json`).then(response => response.json())
+      ])
+      .then(([baseJson, modelJson]) => {
+        data = { ...modelJson, ...baseJson };
+        if (language === 'en') {
+          data = filterEnglishData(data);
+        }
+
+        console.log('Loaded data:', data); // デバッグ用
+      })
+      .catch(error => console.error('Error loading JSON:', error));
+    }
+
+
+    function filterEnglishData(data) {
+      const filteredData = {};
+      for (const key in data) {
+        if (key === 'hr') {
+          filteredData[key] = data[key];
+        } else if (data[key].hasOwnProperty('en')) {
+          filteredData[data[key].en] = filterEnglishData(data[key]);
+        } else if (typeof data[key] === 'object' && !Array.isArray(data[key])) {
+          filteredData[key] = filterEnglishData(data[key]);
+        } else {
+          filteredData[key] = data[key];
+        }
+      }
+      return filteredData;
     }
 
     function showTag1() {
       const tag1Container = document.getElementById('tag1Container');
       tag1Container.innerHTML = '';
+      let hrCount = 0;
       Object.keys(data).forEach(tag => {
-        if (tag === "hr") {
+        if (tag.startsWith('horizontalLine')) {
+
           const hr = document.createElement('hr');
           tag1Container.appendChild(hr);
+          hrCount++;
+          console.log(`HR added (${hrCount})`);
         } else {
           const button = createButton(tag, 1);
           button.addEventListener('click', () => selectTag(tag, 0, data[tag]));
@@ -199,7 +234,7 @@
       currentPath = currentPath.slice(0, level);
       currentPath.push(tag);
 
-      if (typeof data === 'object' && !data.hasOwnProperty('Desc')) {
+      if (typeof data === 'object' && !data.hasOwnProperty('url')) {
         showTags(data, level + 1);
       } else {
         finishSelection(tag, data);
