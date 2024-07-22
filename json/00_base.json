@@ -503,25 +503,25 @@
 
 	"Pose": {
 		"Gesture": {
-			"raise arm": 			{"url": "img/raise-arm.webp" },
-			"arms up": 				{"url": "img/arms-up.webp" },
-			"arms behind back": 	{"url": "img/arms-behind-back.webp" },
-			"cross arms in front": 	{"url": "img/cross-arms-in-front.webp" },
-			"hand on hip": 			{"url": "img/hand-on-hip.webp" },
-			"peace sign": 			{"url": "img/peace-sign.webp" },
-			"spread arms": 			{"url": "img/spread-arms.webp" },
-			"praying hands": 		{"url": "img/praying-hands.webp" },
-			"clenched fist": 		{"url": "img/clenched-fist.webp" },
-			"hand on chest": 		{"url": "img/hand-on-chest.webp" },
-			"pointing finger": 		{"url": "img/pointing-finger.webp" },
-			"thumbs up": 			{"url": "img/thumbs-up.webp" },
-			"sitting": 				{"url": "img/sitting.webp" },
-			"standing": 			{"url": "img/standing.webp" },
-			"squatting": 			{"url": "img/squatting.webp" },
-			"cross-legged": 		{"url": "img/cross-legged.webp" },
-			"lying on back": 		{"url": "img/lying-on-back.webp" },
-			"legs spread": 			{"url": "img/legs-spread.webp" },
-			"seiza": 				{"url": "img/seiza.webp" }
+			"raise arm": 			{"url": "img/pose/raise-arm.webp" },
+			"arms up": 				{"url": "img/pose/arms-up.webp" },
+			"arms behind back": 	{"url": "img/pose/arms-behind-back.webp" },
+			"cross arms in front": 	{"url": "img/pose/cross-arms-in-front.webp" },
+			"hand on hip": 			{"url": "img/pose/hand-on-hip.webp" },
+			"peace sign": 			{"url": "img/pose/peace-sign.webp" },
+			"spread arms": 			{"url": "img/pose/spread-arms.webp" },
+			"praying hands": 		{"url": "img/pose/praying-hands.webp" },
+			"clenched fist": 		{"url": "img/pose/clenched-fist.webp" },
+			"hand on chest": 		{"url": "img/pose/hand-on-chest.webp" },
+			"pointing finger": 		{"url": "img/pose/pointing-finger.webp" },
+			"thumbs up": 			{"url": "img/pose/thumbs-up.webp" },
+			"sitting": 				{"url": "img/pose/sitting.webp" },
+			"standing": 			{"url": "img/pose/standing.webp" },
+			"squatting": 			{"url": "img/pose/squatting.webp" },
+			"cross-legged": 		{"url": "img/pose/cross-legged.webp" },
+			"lying on back": 		{"url": "img/pose/lying-on-back.webp" },
+			"legs spread": 			{"url": "img/pose/legs-spread.webp" },
+			"seiza": 				{"url": "img/pose/seiza.webp" }
 		},
 		"Movement": {
 			"jumping": 				{"url": "img/jumping.webp" },
@@ -771,7 +771,7 @@
 	"Set Style": {
 		"Style": {
 			"manga, manga tone, cartoon tone, monochrome, comic, (rough, sketch:0.2),  lineart, line, (simple background:1.1), (white background:1.1), ": 
-			{"url": "img/vector-art.webp",
+			{"url": "img/set/commic.webp",
 			 "alias": "commic" }
 		}
 	}
