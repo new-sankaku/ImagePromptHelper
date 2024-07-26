@@ -1,4 +1,14 @@
 {
+	"aaa": {
+			"manga, manga tone, cartoon tone, monochrome, comic, (rough, sketch:0.2),  lineart, line, (simple background:1.1), (white background:1.1), ": 
+			{"url": "img/set/commic.webp",
+			 "alias": "commic" },
+
+			"4k": 				{"url": "img/4k.webp" },
+			"8k": 				{"url": "img/8k.webp" },
+			"ultra highres": 	{"url": "img/ultra-highres.webp" }
+	},
+
 	"horizontalLine@100":{},
 	"Quality Prompt": {
 		"Resolution": {
@@ -449,23 +459,23 @@
 	},
 	"Footwear": {
 		"Shoes": {
-			"sneakers": 		{"url": "img/sneakers.webp" },
-			"sandals": 			{"url": "img/sandals.webp" },
-			"high-heels": 		{"url": "img/high-heels.webp" },
-			"pumps": 			{"url": "img/pumps.webp" },
-			"long boots": 		{"url": "img/long-boots.webp" },
-			"ankle boots": 		{"url": "img/ankle-boots.webp" },
-			"loafers": 			{"url": "img/loafers.webp" },
-			"leather shoes": 	{"url": "img/leather-shoes.webp" },
-			"Running shoes": 	{"url": "img/running-shoes.webp" },
-			"rain boots": 		{"url": "img/rain-boots.webp" }
+			"sneakers": 		{"url": "img/foot/sneakers.webp" },
+			"sandals": 			{"url": "img/foot/sandals.webp" },
+			"high-heels": 		{"url": "img/foot/high-heels.webp" },
+			"pumps": 			{"url": "img/foot/pumps.webp" },
+			"long boots": 		{"url": "img/foot/long-boots.webp" },
+			"ankle boots": 		{"url": "img/foot/ankle-boots.webp" },
+			"loafers": 			{"url": "img/foot/loafers.webp" },
+			"leather shoes": 	{"url": "img/foot/leather-shoes.webp" },
+			"Running shoes": 	{"url": "img/foot/running-shoes.webp" },
+			"rain boots": 		{"url": "img/foot/rain-boots.webp" }
 		},
 		"Socks": {
-			"pantyhose": 		{"url": "img/pantyhose.webp" },
-			"thigh-high socks": {"url": "img/thigh-high-socks.webp" },
-			"knee-high socks": 	{"url": "img/knee-high-socks.webp" },
-			"calf socks": 		{"url": "img/calf-socks.webp" },
-			"ankle socks": 		{"url": "img/ankle-socks.webp" }
+			"pantyhose": 		{"url": "img/foot/pantyhose.webp" },
+			"thigh-high socks": {"url": "img/foot/thigh-high-socks.webp" },
+			"knee-high socks": 	{"url": "img/foot/knee-high-socks.webp" },
+			"calf socks": 		{"url": "img/foot/calf-socks.webp" },
+			"ankle socks": 		{"url": "img/foot/ankle-socks.webp" }
 		}
 	},
 	"horizontalLine@198":{},
@@ -503,7 +513,6 @@
 
 	"Pose": {
 		"Gesture": {
-			"raise arm": 			{"url": "img/pose/raise-arm.webp" },
 			"arms up": 				{"url": "img/pose/arms-up.webp" },
 			"arms behind back": 	{"url": "img/pose/arms-behind-back.webp" },
 			"cross arms in front": 	{"url": "img/pose/cross-arms-in-front.webp" },
@@ -518,19 +527,17 @@
 			"sitting": 				{"url": "img/pose/sitting.webp" },
 			"standing": 			{"url": "img/pose/standing.webp" },
 			"squatting": 			{"url": "img/pose/squatting.webp" },
-			"cross-legged": 		{"url": "img/pose/cross-legged.webp" },
 			"lying on back": 		{"url": "img/pose/lying-on-back.webp" },
-			"legs spread": 			{"url": "img/pose/legs-spread.webp" },
-			"seiza": 				{"url": "img/pose/seiza.webp" }
+			"legs spread": 			{"url": "img/pose/legs-spread.webp" }
 		},
 		"Movement": {
-			"jumping": 				{"url": "img/jumping.webp" },
-			"running": 				{"url": "img/running.webp" },
-			"waving": 				{"url": "img/waving.webp" },
-			"walking and waving": 	{"url": "img/walking-and-waving.webp" },
-			"punching": 			{"url": "img/punching.webp" },
-			"selfie": 				{"url": "img/selfie.webp" },
-			"singing": 				{"url": "img/singing.webp" }
+			"jumping": 				{"url": "img/pose/jumping.webp" },
+			"running": 				{"url": "img/pose/running.webp" },
+			"waving": 				{"url": "img/pose/waving.webp" },
+			"walking and waving": 	{"url": "img/pose/walking-and-waving.webp" },
+			"punching": 			{"url": "img/pose/punching.webp" },
+			"selfie": 				{"url": "img/pose/selfie.webp" },
+			"singing": 				{"url": "img/pose/singing.webp" }
 		}
 	},
 	"horizontalLine@104":{},
