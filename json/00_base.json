@@ -1,14 +1,4 @@
 {
-	"aaa": {
-			"manga, manga tone, cartoon tone, monochrome, comic, (rough, sketch:0.2),  lineart, line, (simple background:1.1), (white background:1.1), ": 
-			{"url": "img/set/commic.webp",
-			 "alias": "commic" },
-
-			"4k": 				{"url": "img/4k.webp" },
-			"8k": 				{"url": "img/8k.webp" },
-			"ultra highres": 	{"url": "img/ultra-highres.webp" }
-	},
-
 	"horizontalLine@100":{},
 	"Quality Prompt": {
 		"Resolution": {

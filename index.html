@@ -156,11 +156,12 @@
       
       let customSet = JSON.parse(localStorage.getItem('CustomSet') || '{"Custom Set":{}}');
       const key = freeText ? `${freeText}, ${selectedTagsText}` : selectedTagsText;
-      
+
       customSet['Custom Set'] = {
         ...customSet['Custom Set'],
         [key]: {"url": `img/custom-set/${name}.webp`, "alias": name}
       };
+
       
       localStorage.setItem('CustomSet', JSON.stringify(customSet));
       console.log("custom set", JSON.stringify(customSet));

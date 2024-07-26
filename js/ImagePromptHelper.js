@@ -83,8 +83,8 @@ function iphLoadJson() {
   const model = document.getElementById('iph-model-dropdown').value.toLowerCase();
 
   return Promise.all([
-    fetch(json/00_base.json).then(response => response.json()),
-    fetch(json/00_prompt_${model}_base.json).then(response => response.json())
+    fetch('json/00_base.json').then(response => response.json()),
+    fetch(`json/00_prompt_${model}_base.json`).then(response => response.json())
   ])
   .then(([baseJson, modelJson]) => {
     iphData = { ...iphData, ...modelJson, ...baseJson };
@@ -130,7 +130,8 @@ function iphShowTag1() {
 
 function iphCreateButton(text, level, url, alias, isCustomSet = false) {
   const button = document.createElement('button');
-  button.classList.add('iph-tag-button', iph-tag${level}-button);
+  button.classList.add('iph-tag-button', `iph-tag${level}-button`);
+
   
   if (url) {
     const placeholder = document.createElement('div');
