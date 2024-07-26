@@ -38,6 +38,7 @@ function iphInitializeUI() {
 }
 
 function iphLoadJsonAndRefresh() {
+  iphData = {};
   iphLoadLocalStorage()
     .then(() => iphLoadJson())
     .then(() => {
@@ -51,25 +52,15 @@ function iphLoadLocalStorage() {
     if (customSetJson) {
       const customSet = JSON.parse(customSetJson);
 
-      console.log("iphLoadLocalStorage customSet", customSet);
 
       if (customSet && customSet['Custom Set']) {
         iphData['Custom Set'] = {};
 
-        console.log("iphLoadLocalStorage customSet['Custom Set']", JSON.stringify(customSet['Custom Set']));
         Object.entries(customSet['Custom Set']).forEach(([name, content]) => {
-          console.log("iphLoadLocalStorage name", name);
-          console.log("iphLoadLocalStorage content", JSON.stringify(content));
-
-          console.log("iphLoadLocalStorage content.url", content.url);
-          console.log("iphLoadLocalStorage content.alias", content.alias);
-
           iphData['Custom Set'][name] = {
             url: content.url,
             alias: content.alias
           };
-
-          console.log("iphLoadLocalStorage iphData['Custom Set'][name]", JSON.stringify(iphData['Custom Set'][name]));
         });
       }
     }
@@ -78,6 +69,7 @@ function iphLoadLocalStorage() {
 }
 
 function iphRefreshUI() {
+
   iphCurrentPath = [];
   iphSelectedTagGroups = [];
   iphSelectedImages = [];
@@ -91,16 +83,14 @@ function iphLoadJson() {
   const model = document.getElementById('iph-model-dropdown').value.toLowerCase();
 
   return Promise.all([
-    fetch(`json/00_base.json`).then(response => response.json()),
-    fetch(`json/00_prompt_${model}_base.json`).then(response => response.json())
+    fetch(json/00_base.json).then(response => response.json()),
+    fetch(json/00_prompt_${model}_base.json).then(response => response.json())
   ])
   .then(([baseJson, modelJson]) => {
     iphData = { ...iphData, ...modelJson, ...baseJson };
     if (language === 'en') {
       iphData = iphFilterEnglishData(iphData);
     }
-
-    console.log('Loaded data:', iphData);
   })
   .catch(error => console.error('Error loading JSON:', error));
 }
@@ -130,11 +120,8 @@ function iphShowTag1() {
       const hr = document.createElement('hr');
       tag1Container.appendChild(hr);
       hrCount++;
-      console.log(`HR added (${hrCount})`);
     } else {
       const button = iphCreateButton(tag, 1);
-      console.log("custom tag", tag);
-      console.log("custom iphData[tag]", JSON.stringify(iphData[tag]));
       button.addEventListener('click', () => iphSelectTag(tag, 0, iphData[tag]));
       tag1Container.appendChild(button);
     }
@@ -143,7 +130,7 @@ function iphShowTag1() {
 
 function iphCreateButton(text, level, url, alias, isCustomSet = false) {
   const button = document.createElement('button');
-  button.classList.add('iph-tag-button', `iph-tag${level}-button`);
+  button.classList.add('iph-tag-button', iph-tag${level}-button);
   
   if (url) {
     const placeholder = document.createElement('div');
@@ -165,20 +152,15 @@ function iphCreateButton(text, level, url, alias, isCustomSet = false) {
       removeButton.classList.add('iph-remove-custom-set');
       removeButton.innerHTML = '✕';
       removeButton.onclick = (e) => {
-        console.log("removeButton start1");
         e.stopPropagation();
-        console.log("removeButton start2");
         e.preventDefault();
-        console.log("removeButton start3");
-        iphRemoveCustomSetItem(text);
-        console.log("removeButton start4");
+        iphRemoveCustomSetItem(text, button);
       };
       button.appendChild(removeButton);
     }
   }
-  console.trace();
+  
   const span = document.createElement('span');
-  console.log("alias", alias);
   if (alias) {
     span.textContent = alias;
   } else {
@@ -187,6 +169,7 @@ function iphCreateButton(text, level, url, alias, isCustomSet = false) {
   button.appendChild(span);
   return button;
 }
+
 
 function iphLoadImage(url) {
   if (iphImageCache.has(url)) {
@@ -213,13 +196,9 @@ function iphShowTags(currentData, level) {
   }
 
   const levelContainer = document.createElement('div');
-  console.log("iphShowTags currentData", currentData);
   const buttons = Object.keys(currentData).map(tag => {
 
-    console.log("iphShowTags tag", tag);
-
     const tagData = currentData[tag];
-    console.log("iphShowTags tagData", JSON.stringify(tagData));
 
     const url = tagData.url || (typeof tagData === 'object' && tagData.hasOwnProperty('url') ? tagData.url : null);
     const alias = tagData.alias || (typeof tagData === 'object' && tagData.hasOwnProperty('alias') ? tagData.alias : null);
@@ -248,7 +227,6 @@ function iphSelectTag(tag, level, data) {
   iphCurrentPath.push(tag);
 
   if (typeof data === 'object' && !data.hasOwnProperty('url')) {
-    console.log("iphSelectTag data", data);
     iphShowTags(data, level + 1);
   } else {
     iphFinishSelection(tag, data);
@@ -360,29 +338,27 @@ function iphUpdateImageDisplay() {
   });
 }
 
-function iphRemoveCustomSetItem(itemName) {
-  console.log("iphRemoveCustomSetItem", "1");
+
+
+
+function iphRemoveCustomSetItem(itemName, buttonElement) {
   let customSet = JSON.parse(localStorage.getItem('CustomSet') || '{"Custom Set":{}}');
-  console.log("iphRemoveCustomSetItem", "2");
 
   if (customSet['Custom Set'] && customSet['Custom Set'][itemName]) {
-    console.log("iphRemoveCustomSetItem", "3");
     delete customSet['Custom Set'][itemName];
-    console.log("iphRemoveCustomSetItem", "4");
     localStorage.setItem('CustomSet', JSON.stringify(customSet));
-    console.log("iphRemoveCustomSetItem", "5");
-    
-    // データの再読み込みと UI の更新
-    console.log("iphRemoveCustomSetItem", "6");
-    iphLoadLocalStorage().then(() => {
-      console.log("iphRemoveCustomSetItem", "7");
-      iphRefreshUI();  // 全体のUIを更新
-      console.log("iphRemoveCustomSetItem", "8");
-      if (iphCurrentPath[0] === 'Custom Set') {
-        console.log("iphRemoveCustomSetItem", "9");
-        iphShowTags(iphData['Custom Set'], iphCurrentPath.length - 1);
-        console.log("iphRemoveCustomSetItem", "10");
-      }
-    });
+    if (iphData['Custom Set'] && iphData['Custom Set'][itemName]) {
+      delete iphData['Custom Set'][itemName];
+    }
+    if (buttonElement && buttonElement.parentNode) {
+      buttonElement.parentNode.removeChild(buttonElement);
+    }
+    const index = iphSelectedTagGroups.indexOf(itemName);
+    if (index !== -1) {
+      iphRemoveTagGroup(index);
+    }
+    if (iphCurrentPath[0] === 'Custom Set') {
+      iphShowTags(iphData['Custom Set'], iphCurrentPath.length - 1);
+    }
   }
 }
