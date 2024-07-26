@@ -117,7 +117,7 @@
     function updateLanguageDropdown() {
       const selectedOption = languageDropdown.options[languageDropdown.selectedIndex];
       const flagCode = selectedOption.getAttribute('data-flag');
-      languageDropdown.style.backgroundImage = url(https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/${flagCode}.svg);
+      languageDropdown.style.backgroundImage = `url(https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/${flagCode}.svg)`;
     }
 
     function initializeUI() {
@@ -155,11 +155,11 @@
       }
       
       let customSet = JSON.parse(localStorage.getItem('CustomSet') || '{"Custom Set":{}}');
-      const key = freeText ? ${freeText}, ${selectedTagsText} : selectedTagsText;
+      const key = freeText ? `${freeText}, ${selectedTagsText}` : selectedTagsText;
       
       customSet['Custom Set'] = {
         ...customSet['Custom Set'],
-        [key]: {"url": img/custom-set/${name}.webp, "alias": name}
+        [key]: {"url": `img/custom-set/${name}.webp`, "alias": name}
       };
       
       localStorage.setItem('CustomSet', JSON.stringify(customSet));
