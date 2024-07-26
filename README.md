@@ -3,5 +3,5 @@
 
 https://new-sankaku.github.io/ImagePromptHelper/
 
-![image](https://github.com/user-attachments/assets/4bb6e92e-f79a-4535-acd6-06ecbfbf1646)
+![image](https://github.com/user-attachments/assets/f87753c8-6301-4579-b4a1-6f008ec4e058)
 
