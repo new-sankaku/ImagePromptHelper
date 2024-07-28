@@ -333,3 +333,13 @@ hr {
   background-color: rgba(255, 0, 0, 0.7);
   color: white;
 }
+
+    .flag-icon {
+      margin-right: 5px;
+    }
+    #iph-language-dropdown {
+      padding-left: 30px;
+      background-position: 10px center;
+      background-repeat: no-repeat;
+      background-size: 20px;
+    }

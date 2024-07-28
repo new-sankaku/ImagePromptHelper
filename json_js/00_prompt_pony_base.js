@@ -1,0 +1,32 @@
+var prompt_pony_base = { 
+	"horizontalLine@1":{},
+	"Pony": {
+		"High Quality": {
+			"score_9": 		{"url": "img/score_9.webp" },
+			"score_8": 		{"url": "img/score_8.webp" },
+			"score_7": 		{"url": "img/score_7.webp" },
+			"score_6": 		{"url": "img/score_6.webp" },
+			"score_5": 		{"url": "img/score_5.webp" },
+			"score_4": 		{"url": "img/score_4.webp" }
+		},
+		"Up High Quality": {
+			"score_9_up": 		{"url": "img/score_9_up.webp" },
+			"score_8_up": 		{"url": "img/score_8_up.webp" },
+			"score_7_up": 		{"url": "img/score_7_up.webp" },
+			"score_6_up": 		{"url": "img/score_6_up.webp" },
+			"score_5_up": 		{"url": "img/score_5_up.webp" },
+			"score_4_up": 		{"url": "img/score_4_up.webp" }
+		},
+		"Source": {
+			"source_pony": 			{"url": "img/source_pony.webp" },
+			"source_furry": 		{"url": "img/source_furry.webp" },
+			"source_anime": 		{"url": "img/source_anime.webp" },
+			"source_cartoon": 		{"url": "img/source_cartoon.webp" }
+		},
+		"Safe": {
+			"rating_safe": 			{"url": "img/rating_safe.webp" },
+			"rating_questionable": 	{"url": "img/rating_questionable.webp" },
+			"rating_explicit": 		{"url": "img/rating_explicit.webp" }
+		}
+	}
+}

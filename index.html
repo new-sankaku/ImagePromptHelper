@@ -9,28 +9,36 @@
   <script src="https://unpkg.com/i18next-http-backend@1.4.3/i18nextHttpBackend.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-  <script src="js/ImagePromptHelper.js?v=4.1"></script>
-  <style>
-    .flag-icon {
-      margin-right: 5px;
-    }
-    #iph-language-dropdown {
-      padding-left: 30px;
-      background-position: 10px center;
-      background-repeat: no-repeat;
-      background-size: 20px;
-    }
+
+  <script src="js/ImagePromptHelper.js?v=4.2"></script>
+  <script src="js/util/LoadUtil.js?v=4.2"></script>
+
+<style>
+
   </style>
   <script>
+    function loadJsResource(language, namespace, callback) {
+      loadJS(`json_js/01_trans_${language}.js`, 'head')
+        .then(() => {
+          const resources = window[`trans_${language}`];
+          callback(null, resources);
+        })
+        .catch(error => {
+          console.error(`Error loading language file for ${language}:`, error);
+          callback(error, null);
+        });
+    }
+
+    // i18next初期化関数
     function initI18next(lang) {
       return i18next
-        .use(i18nextHttpBackend)
+        .use({
+          type: 'backend',
+          read: loadJsResource,
+        })
         .init({
           lng: lang,
           fallbackLng: 'en',
-          backend: {
-            loadPath: 'json/01_trans_{{lng}}.json'
-          }
         });
     }
   </script>
@@ -75,102 +83,7 @@
     <div id="iph-image-container"></div>
   </div>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const saveButton = document.getElementById('iph-save-button');
-    const nameInput = document.getElementById('iph-name-input');
-    const freeInput = document.getElementById('iph-free-input');
-    const selectedTags = document.getElementById('iph-selected-tags');
-    const languageDropdown = document.getElementById('iph-language-dropdown');
-    const modelDropdown = document.getElementById('iph-model-dropdown');
-    
-    function loadSettings() {
-      const settings = JSON.parse(localStorage.getItem('uiSettings') || '{}');
-      if (settings.language) {
-        languageDropdown.value = settings.language;
-      }
-      if (settings.model) {
-        modelDropdown.value = settings.model;
-      }
-      return settings;
-    }
 
-    function saveSettings() {
-      const settings = {
-        language: languageDropdown.value,
-        model: modelDropdown.value
-      };
-      localStorage.setItem('uiSettings', JSON.stringify(settings));
-    }
-
-    function updateContent() {
-      document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (key.startsWith('[')) {
-          const attr = key.match(/\[(.*?)\]/)[1];
-          element.setAttribute(attr, i18next.t(key.substring(key.indexOf(']') + 1)));
-        } else {
-          element.textContent = i18next.t(key);
-        }
-      });
-    }
-
-    function updateLanguageDropdown() {
-      const selectedOption = languageDropdown.options[languageDropdown.selectedIndex];
-      const flagCode = selectedOption.getAttribute('data-flag');
-      languageDropdown.style.backgroundImage = `url(https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/${flagCode}.svg)`;
-    }
-
-    function initializeUI() {
-      const settings = loadSettings();
-      initI18next(settings.language || 'en').then(() => {
-        updateContent();
-        updateLanguageDropdown();
-        iphInitializeUI(); // Assuming this function exists in ImagePromptHelper.js
-      });
-    }
-
-    languageDropdown.addEventListener('change', function() {
-      i18next.changeLanguage(this.value, function() {
-        updateContent();
-        updateLanguageDropdown();
-        saveSettings();
-      });
-    });
-
-    modelDropdown.addEventListener('change', function() {
-      saveSettings();
-      iphLoadJsonAndRefresh(); // Assuming this function exists in ImagePromptHelper.js
-    });
-
-    saveButton.addEventListener('click', function() {
-      const name = nameInput.value.trim();
-      const freeText = freeInput.value.trim();
-      
-      const selectedTagsArray = Array.from(selectedTags.children).map(tag => tag.textContent.trim());
-      const selectedTagsText = selectedTagsArray.join(', ');
-      
-      if (!name) {
-        alert(i18next.t('alerts.nameMissing'));
-        return;
-      }
-      
-      let customSet = JSON.parse(localStorage.getItem('CustomSet') || '{"Custom Set":{}}');
-      const key = freeText ? `${freeText}, ${selectedTagsText}` : selectedTagsText;
-
-      customSet['Custom Set'] = {
-        ...customSet['Custom Set'],
-        [key]: {"url": `img/custom-set/${name}.webp`, "alias": name}
-      };
-
-      
-      localStorage.setItem('CustomSet', JSON.stringify(customSet));
-      console.log("custom set", JSON.stringify(customSet));
-      
-      iphInitializeUI();
-    });
-
-    initializeUI();
-  });
   </script>
 </body>
 </html>

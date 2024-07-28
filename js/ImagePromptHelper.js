@@ -40,7 +40,7 @@ function iphInitializeUI() {
 function iphLoadJsonAndRefresh() {
   iphData = {};
   iphLoadLocalStorage()
-    .then(() => iphLoadJson())
+    .then(() => iphLoadData())
     .then(() => {
       iphRefreshUI();
     });
@@ -78,22 +78,35 @@ function iphRefreshUI() {
   iphUpdateImageDisplay();
 }
 
-function iphLoadJson() {
+async function iphLoadData() {
   const language = document.getElementById('iph-language-dropdown').value;
   const model = document.getElementById('iph-model-dropdown').value.toLowerCase();
 
-  return Promise.all([
-    fetch('json/00_base.json').then(response => response.json()),
-    fetch(`json/00_prompt_${model}_base.json`).then(response => response.json())
-  ])
-  .then(([baseJson, modelJson]) => {
-    iphData = { ...iphData, ...modelJson, ...baseJson };
-    if (language === 'en') {
-      iphData = iphFilterEnglishData(iphData);
-    }
-  })
-  .catch(error => console.error('Error loading JSON:', error));
+  try {
+      // 基本データとモデル固有データを読み込む
+      await Promise.all([
+          loadJS('json_js/00_base.js', 'head'),
+          loadJS(`json_js/00_prompt_${model}_base.js`, 'head')
+      ]);
+
+      // データを結合
+      iphData = { 
+          ...iphData, 
+          ...window[`prompt_${model}_base`],
+          ...window.base
+      };
+
+      // 英語データのフィルタリング（必要な場合）
+      if (language === 'en') {
+          iphData = iphFilterEnglishData(iphData);
+      }
+
+      console.log('Data loaded successfully');
+  } catch (error) {
+      console.error('Error loading data:', error);
+  }
 }
+
 
 function iphFilterEnglishData(data) {
   const filteredData = {};
@@ -363,3 +376,109 @@ function iphRemoveCustomSetItem(itemName, buttonElement) {
     }
   }
 }
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const saveButton = document.getElementById('iph-save-button');
+    const nameInput = document.getElementById('iph-name-input');
+    const freeInput = document.getElementById('iph-free-input');
+    const selectedTags = document.getElementById('iph-selected-tags');
+    const languageDropdown = document.getElementById('iph-language-dropdown');
+    const modelDropdown = document.getElementById('iph-model-dropdown');
+    
+    function loadSettings() {
+      const settings = JSON.parse(localStorage.getItem('uiSettings') || '{}');
+      if (settings.language) {
+        languageDropdown.value = settings.language;
+      }
+      if (settings.model) {
+        modelDropdown.value = settings.model;
+      }
+      return settings;
+    }
+
+    function saveSettings() {
+      const settings = {
+        language: languageDropdown.value,
+        model: modelDropdown.value
+      };
+      localStorage.setItem('uiSettings', JSON.stringify(settings));
+    }
+
+    function updateContent() {
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (key.startsWith('[')) {
+          const attr = key.match(/\[(.*?)\]/)[1];
+          element.setAttribute(attr, i18next.t(key.substring(key.indexOf(']') + 1)));
+        } else {
+          element.textContent = i18next.t(key);
+        }
+      });
+    }
+
+    function updateLanguageDropdown() {
+      const selectedOption = languageDropdown.options[languageDropdown.selectedIndex];
+      const flagCode = selectedOption.getAttribute('data-flag');
+      languageDropdown.style.backgroundImage = `url(https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/${flagCode}.svg)`;
+    }
+
+    function initializeUI() {
+      const settings = loadSettings();
+      initI18next(settings.language || 'en')
+        .then(() => {
+          updateContent();
+          updateLanguageDropdown();
+          iphInitializeUI();
+        })
+        .catch(error => {
+          console.error('Failed to initialize i18next:', error);
+        });
+    }
+
+    languageDropdown.addEventListener('change', function() {
+      i18next.changeLanguage(this.value)
+        .then(() => {
+          updateContent();
+          updateLanguageDropdown();
+          saveSettings();
+        })
+        .catch(error => {
+          console.error('Failed to change language:', error);
+        });
+    });
+
+    modelDropdown.addEventListener('change', function() {
+      saveSettings();
+      iphLoadJsonAndRefresh(); // Assuming this function exists in ImagePromptHelper.js
+    });
+
+    saveButton.addEventListener('click', function() {
+      const name = nameInput.value.trim();
+      const freeText = freeInput.value.trim();
+      
+      const selectedTagsArray = Array.from(selectedTags.children).map(tag => tag.textContent.trim());
+      const selectedTagsText = selectedTagsArray.join(', ');
+      
+      if (!name) {
+        alert(i18next.t('alerts.nameMissing'));
+        return;
+      }
+      
+      let customSet = JSON.parse(localStorage.getItem('CustomSet') || '{"Custom Set":{}}');
+      const key = freeText ? `${freeText}, ${selectedTagsText}` : selectedTagsText;
+
+      customSet['Custom Set'] = {
+        ...customSet['Custom Set'],
+        [key]: {"url": `img/custom-set/${name}.webp`, "alias": name}
+      };
+
+      
+      localStorage.setItem('CustomSet', JSON.stringify(customSet));
+      console.log("custom set", JSON.stringify(customSet));
+      
+      iphInitializeUI();
+    });
+
+    initializeUI();
+  });
